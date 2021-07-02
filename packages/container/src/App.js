@@ -1,5 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, Suspense } from "react";
+import "./App.css";
+import logo from "./logo.svg";
+
+const MFE1Button = lazy(() => import("mfe3/Button"));
 
 function App() {
   return (
@@ -9,14 +12,9 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Suspense fallback="Loading Button">
+          <MFE1Button />
+        </Suspense>
       </header>
     </div>
   );

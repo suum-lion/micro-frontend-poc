@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
   devServer: {
-    port: 8081
+    port: 8084
   },
   module: {
     rules: [
@@ -30,11 +30,11 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "container",
-      remotes: {
-        mfe1: "mfe1@http://localhost:8082/remoteEntry.js",
-        mfe2: "mfe2@http://localhost:8083/remoteEntry.js",
-        mfe3: "mfe3@http://localhost:8084/remoteEntry.js"
+      name: "mfe3",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./mfe3Index": "./src/index",
+        "./Button": "./src/Button"
       }
     }),
     new HtmlWebpackPlugin({
