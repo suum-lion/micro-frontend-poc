@@ -1,11 +1,15 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ExternalTemplateRemotesPlugin = require("external-remotes-plugin");
 
 module.exports = {
   mode: "development",
   devServer: {
     port: 8081
+  },
+  output: {
+    publicPath: "auto"
   },
   module: {
     rules: [
@@ -32,11 +36,12 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "container",
       remotes: {
-        mfe1: "mfe1@http://localhost:8082/remoteEntry.js",
-        mfe2: "mfe2@http://localhost:8083/remoteEntry.js",
-        mfe3: "mfe3@http://localhost:8084/remoteEntry.js"
+        mfe1: "mfe1@[mfe1Url]/remoteEntry.js",
+        mfe2: "mfe2@[mfe2Url]/remoteEntry.js",
+        mfe3: "mfe3@[mfe3Url]/remoteEntry.js"
       }
     }),
+    new ExternalTemplateRemotesPlugin(),
     new HtmlWebpackPlugin({
       template: "./public/index.html"
     }),
